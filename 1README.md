@@ -15,10 +15,15 @@ Credits
 License
 
 1. Installation
+
+
 MY-EMPLOYEE-MANAGEMENT SYSTEM is a friendly app that our clients will be able to use. This will be install to the HR's computer or the Business owner's compny in case there is not HR sur us small businesses. 
 To install it you need to run config/schema.sql .
 For Demo purposes you may want to additionally execute confi/seeds.sql .
 2. Usage
+
+How to use? very siple. You only have to run on your terminal : npm start
+
 Using MY-EMPLOYEE-MANAGEMENT-SYSTEM is easy and simple. As soon as you open the app, you will be prompt to a series of question such as:
 
   * Add departments, roles, employees
