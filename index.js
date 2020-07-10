@@ -36,3 +36,24 @@ class Program {
             }
         })
     }
+    async getTable(table,cb){
+        db.query('SELECT * FROM ' + table,(err,results)=>{
+            if(err){
+                console.log('Unable to retrieve data from ' + table);
+            }
+            this[table] = results;
+            cb(results);
+        })
+    }
+    async view(table){
+        switch(table){
+            case 'employee':
+                db.query('SELECT e.id, e.first_name, e.last_name, r.title, r.salary, m.manager ' + 
+                'FROM employee e LEFT JOIN role r ON r.id = e.role_id ' + 
+                'LEFT JOIN (SELECT id, CONCAT_WS(first_name, last_name) as manager FROM employee) m ON m.id = e.manager_id', (err,result)=>{
+                    if(err){
+                        console.error('query failed')
+                    }
+                    console.table(result);
+                    this.start();
+                });
