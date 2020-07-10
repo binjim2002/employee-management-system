@@ -57,3 +57,34 @@ class Program {
                     console.table(result);
                     this.start();
                 });
+                break;
+                case 'role':
+                    db.query('SELECT r.id, r.title, d.name as department FROM role r JOIN department d ON d.id = r.department_id',(err,result)=>{
+                        if(err){
+                            console.error('query failed')
+                        }
+                        console.table(result);
+                        this.start();
+                    });
+                    break;
+                case 'department':
+                    db.query('SELECT * FROM department',(err,result)=>{
+                        if(err){
+                            console.error('query failed')
+                        }
+                        console.table(result);
+                        this.start();
+                    })
+                    break;
+            }
+    
+            
+        }
+
+
+
+
+
+
+
+        
