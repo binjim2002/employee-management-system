@@ -12,6 +12,7 @@ const mainMenuQuestions = [
         choices: ['Add department', 'Add employee', 'Add role', 'View employees', 'View departments', 'View roles']
     }
 ];
+
 class Program {
     init(){
         
@@ -58,33 +59,82 @@ class Program {
                     this.start();
                 });
                 break;
-                case 'role':
-                    db.query('SELECT r.id, r.title, d.name as department FROM role r JOIN department d ON d.id = r.department_id',(err,result)=>{
-                        if(err){
-                            console.error('query failed')
-                        }
-                        console.table(result);
-                        this.start();
-                    });
-                    break;
-                case 'department':
-                    db.query('SELECT * FROM department',(err,result)=>{
-                        if(err){
-                            console.error('query failed')
-                        }
-                        console.table(result);
-                        this.start();
-                    })
-                    break;
-            }
-    
-            
+            case 'role':
+                db.query('SELECT r.id, r.title, d.name as department FROM role r JOIN department d ON d.id = r.department_id',(err,result)=>{
+                    if(err){
+                        console.error('query failed')
+                    }
+                    console.table(result);
+                    this.start();
+                });
+                break;
+            case 'department':
+                db.query('SELECT * FROM department',(err,result)=>{
+                    if(err){
+                        console.error('query failed')
+                    }
+                    console.table(result);
+                    this.start();
+                })
+                break;
         }
 
-
-
-
-
-
-
         
+    }
+    async add(table){
+        let questions = [];
+        
+        
+        db.query(`SHOW COLUMNS FROM ${table}`, (err, structure)=>{
+            if(err){
+                console.error(err)
+            }
+            
+            structure.forEach(field => {
+                
+                if(field.Field !== 'id'){
+                    
+                    switch(field.Field){
+                        case 'manager_id':  
+                            questions.push({
+                                name: 'manager_id',
+                                type:'list',
+                                choices:this.constructChoices('employee',['first_name','last_name'])
+                            });
+                            
+                        break;
+                        case 'role_id': 
+                            questions.push({
+                                name: 'role_id',
+                                type:'list',
+                                choices:this.constructChoices('role',['title'])
+                            });
+                        break;
+                        case 'department_id': 
+                            questions.push({
+                                name: 'department_id',
+                                type:'list',
+                                choices:this.constructChoices('department',['name'])
+                            });
+                        break;
+                        default:
+                            questions.push({
+                                name: field.Field,
+                                message: field.Field + ":",
+    
+                            });
+                            break; 
+                    }
+                        
+                    
+                    
+                    
+                }
+            })
+            
+            this.promptInsert(questions, table);
+           
+        });
+        
+    }
+    
