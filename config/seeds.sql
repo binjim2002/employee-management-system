@@ -1,9 +1,13 @@
-INSERT INTO clients (client_name) VALUES ('Bilal');
-INSERT INTO clients (client_name) VALUES ('Brianne');
-INSERT INTO clients (client_name) VALUES ('Vincent');
+INSERT INTO "department" (name) VALUES ('Sales');
+INSERT INTO "department" (name) VALUES ('HR');
+INSERT INTO "department" (name) VALUES ('Development');
+INSERT INTO "department" (name) VALUES ('IT');
 
-INSERT INTO parties (party_name, party_type, party_cost, client_id) VALUES ('Everybody Loves Raymond', 'tv', 500, 1);
-INSERT INTO parties (party_name, party_type, party_cost, client_id) VALUES ('Big Bang Theory', 'tv', 900, 1);
-INSERT INTO parties (party_name, party_type, party_cost, client_id) VALUES ('Top Gun', 'movie', 200, 2);
-INSERT INTO parties (party_name, party_type, party_cost, client_id) VALUES ('Whiskey', 'grown-up', 300, 2);
-INSERT INTO parties (party_name, party_type, party_cost, client_id) VALUES ('Cigar', 'grown-up', 250, 3);
+INSERT INTO "role" (title, salary, department_id) VALUES ('Head of Sales', 180000, 1);
+INSERT INTO "role" (title, salary, department_id) VALUES ('Administrative Assistant', 60000, 2);
+INSERT INTO "role" (title, salary, department_id) VALUES ('Designer', 120000, 3);
+INSERT INTO "role" (title, salary, department_id) VALUES ('Network Administrator', 90000, 4);
+
+INSERT INTO "employee" (first_name, last_name, role_id, manager_id) VALUES ('Sam', 'Johnson', 1, null);
+INSERT INTO "employee" (first_name, last_name, role_id, manager_id) VALUES ('Anna', 'Bates', 2, 1);
+INSERT INTO "employee" (first_name, last_name, role_id, manager_id) VALUES ('John', 'Doe', 4, 2);
