@@ -156,4 +156,25 @@ class Program {
         this.prompt(questions,answers =>{
             let keyValues = '';
             
-            
+            Object.keys(answers).forEach((key,i)=>{
+                keyValues += (i>0?', ':' ') + key + ' = "' + answers[key] + '"';
+            })
+          
+            db.query('INSERT INTO ' + table + ' SET ' + keyValues, (err,result)=>{
+                if(err){
+                    console.error('INSERT FAILED')
+                }
+                this.getTable(table,_ => this.start())
+                
+            })
+        })
+    }
+    async prompt(questions, callback){
+        callback(await inquirer.prompt(questions));
+
+    }
+
+}
+const program = new Program();
+program.init();
+program.start(); 
