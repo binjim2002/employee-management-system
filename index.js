@@ -137,4 +137,23 @@ class Program {
         });
         
     }
-    
+    constructChoices(entity, valueKeys){
+        let choices = [];
+        let short = '';
+        this[entity].forEach(item => {
+            let name = '';
+            valueKeys.forEach(key => {
+                name += item[key] + ' ';
+                short = item[key];
+            })
+            
+            choices.push({name:name, value: item.id, short:short})
+        });
+        
+        return choices;
+    }
+    async promptInsert(questions, table){
+        this.prompt(questions,answers =>{
+            let keyValues = '';
+            
+            
